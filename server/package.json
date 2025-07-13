@@ -4,8 +4,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon index.js"
-  },
+  "dev": "nodemon index.js",
+  "heroku-postbuild": "cd client && npm install && npm run build"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
