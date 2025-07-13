@@ -1,8 +1,11 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import { userLoggedIn, userLoggedOut } from "../authSlice";
 
-const USER_API = import.meta.env.VITE_API_BASE_URL;
-
+const USER_API =
+  import.meta.env.MODE === "production"
+    ? "https://lms-m6e0.onrender.com/api/v1/user/"
+    : "http://localhost:5000/api/v1/user/";
+    
 export const authApi = createApi({
     reducerPath:"authApi",
     baseQuery:fetchBaseQuery({
