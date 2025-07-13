@@ -21,7 +21,7 @@ const PORT = process.env.PORT || 5000;
 // Middlewares
 app.use(cookieParser());
 app.use(cors({
-  origin: ["http://localhost:5173", "https://your-frontend.vercel.app"],
+  origin: ["http://localhost:5173", "https://lms-m6e0.onrender.com/" ],
   credentials: true,
 }));
 app.use(express.json());
