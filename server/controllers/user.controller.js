@@ -4,6 +4,7 @@ import { generateToken } from "../utils/generateToken.js";
 import { deleteMediaFromCloudinary, uploadMedia } from "../utils/cloudinary.js";
 
 export const register = async (req,res) => {
+      console.log("🔥 Register hit", req.body);
     try {
        
         const {name, email, password,role} = req.body;
@@ -47,40 +48,9 @@ export const register = async (req,res) => {
         })
     }
 }
-// export const login = async (req,res) => {
-//     try {
-//         const {email, password} = req.body;
-//         if(!email || !password){
-//             return res.status(400).json({
-//                 success:false,
-//                 message:"All fields are required."
-//             })
-//         }
-//         const user = await User.findOne({email});
-//         if(!user){
-//             return res.status(400).json({
-//                 success:false,
-//                 message:"Incorrect email or password"
-//             })
-//         }
-//         const isPasswordMatch = await bcrypt.compare(password, user.password);
-//         if(!isPasswordMatch){
-//             return res.status(400).json({
-//                 success:false,
-//                 message:"Incorrect email or password"
-//             });
-//         }
-//         generateToken(res, user, `Welcome back ${user.name}`);
 
-//     } catch (error) {
-//         console.log(error);
-//         return res.status(500).json({
-//             success:false,
-//             message:"Failed to login"
-//         })
-//     }
-// }
 export const login = async (req, res) => {
+     console.log("🔥 login hit", req.body);
   try {
     const { email, password } = req.body;
 
