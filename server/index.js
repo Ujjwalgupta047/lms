@@ -18,11 +18,13 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // ✅ Stripe Webhook comes BEFORE express.json()
-// app.post("/api/v1/purchase/webhook", express.raw({ type: "application/json" }), stripeWebhook);
 
 // Middlewares
 app.use(cookieParser());
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({
+  origin: ["http://localhost:5173", "https://your-frontend.vercel.app"],
+  credentials: true,
+}));
 app.use(express.json());
 
 // ✅ Routes (AFTER express.json)
@@ -32,19 +34,21 @@ app.use("/api/v1/media", mediaRoute);
 app.use("/api/v1/progress", courseProgressRoute);
 app.use("/api/v1/purchase", purchaseRoute);
 
-// Logger for every request
-app.use((req, res, next) => {
-  console.log(`🔥 ${req.method} ${req.originalUrl}`);
-  next();
-});
 
-// Test route
-app.post("/test", (req, res) => {
-  console.log("✅ /test route hit");
-  res.send("Test OK");
-});
+import path from "path";
+import { fileURLToPath } from "url";
 
-// Start server
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "./client/dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "./client", "dist", "index.html"));
+  });
+}
+
+// ✅ Start the server
 app.listen(PORT, () => {
   console.log(`Server listen at port ${PORT}`);
 });
