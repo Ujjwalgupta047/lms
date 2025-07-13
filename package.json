@@ -1,5 +1,5 @@
 {
-  "name": "mern-root",
+  "name": "lms-deploy",
   "version": "1.0.0",
   "scripts": {
     "heroku-postbuild": "cd client && npm install && npm run build"
